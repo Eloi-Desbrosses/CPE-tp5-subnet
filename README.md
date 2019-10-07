@@ -24,6 +24,7 @@ Adresse réseau | 1er host | Dernier host | Broadcast | Bit de sous-réseau | No
 172.16.1.64 | 1.65 | 1.126 | 1.127 | /26 | 33 | 172.16.1.64/26
 172.16.1.128 | 1.129 | 1.158 | 1.159 | /27 | 25 | 172.16.1.128/27
 
+Pour optimiser la distribution des adresses, j'utilise le VLSM. Cela est notamment notable à la dernière adresse qui utilise un masque en  /27
 
 ## Exercice 2. Préparation de l’environnement
 
