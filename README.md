@@ -14,6 +14,16 @@ réparties en 7 sous-réseaux. La répar tition des machines est la suivante :
 Donnez, pour chaque sous-réseau, l’adresse de sous-réseau, l’adresse de broadcast (multidiffusion) ainsi
 que les adresses de la première et dernière machine configurées (précisez si vous utilisez du VLSM ou pas).
 
+Adresse réseau | 1er host | Dernier host | Broadcast | Bit de sous-réseau | Nombre de poste nécessaire | Masque de sous-réseau
+-------------- | -------- | ------------ | --------- | ------------------ | -------------------------- | ---------------------
+172.16.0.0 | 0.1 | 0.62 | 0.63 | /26 | 52 | 172.16.0.0/26
+172.16.0.64 | 0.65 | 0.126 | 0.127 | /26 | 38 | 172.16.0.64/26
+172.16.0.128 | 0.129 | 0.190 | 0.191 | /26 | 37 | 172.16.0.128/26
+172.16.0.192 | 0.193 | 0.254 | 0.255 | /26 | 35 |172.16.0.192/26
+172.16.1.0 | 1.1 | 1.62 | 1.63 | /26 | 34 | 172.16.1.0/26
+172.16.1.64 | 1.65 | 1.126 | 1.127 | /26 | 33 | 172.16.1.64/26
+172.16.1.128 | 1.129 | 1.158 | 1.159 | /27 | 25 | 172.16.1.128/27
+
 
 ## Exercice 2. Préparation de l’environnement
 
