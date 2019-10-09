@@ -40,20 +40,28 @@ adresse IP du serveur DHCP.
 
 1. VM éteintes, utilisez les outils de configuration de VirtualBox pour mettre en place l’environnement
 décrit ci-dessus
+
 2. Démarrez le serveur et vérifiez que les interfaces réseau sont bien présentes. A quoi correspond l’interface
 appelée lo ?
+
+Lo correspond à l'interface de loopback qui pointe vers la machine locale.
 
 ## Exercice 3. Installation du serveur DHCP
 
 Un serveur DHCP permet aux ordinateurs clients d’obtenir automatiquement une configuration réseau
 (adresse IP, serveur DNS, passerelle par défaut…), pour une durée déterminée. Ainsi, dans notre cas, l’interfaces réseau de client doit être configurée automatiquement par serveur.
+
 1. Sur le serveur, installez le paquet isc-dhcp-server. La commande systemctl status isc-dhcp-server
 devrait vous indiquer que le serveur n’a pas réussi à démarrer, ce qui est normal puisqu’il n’est pas
 encore configuré (en particulier, il n’a pas encore d’adresses IP à distribuer).
+
 2. Un serveur DHCP a besoin d’une IP statique. Attribuez de manière permanente l’adresse IP 192.168.100.1
 à l’interface réseau du réseau interne. Vérifiez que la configuration est correcte.
+
 3. La configuration du serveur DHCP se fait via le fichier /etc/dhcp/dhcpd.conf. Renommez le fichier
 existant sous le nom dhcpd.conf.bak puis créez en un nouveau avec les informations suivantes :
+
+```
 default-lease-time 120;
 max-lease-time 600;
 authoritative; #DHCP officiel pour notre réseau
@@ -64,13 +72,26 @@ range 192.168.100.100 192.168.100.240; #pool d'adresses IP attribuables
 option routers 192.168.100.1; #le serveur sert de passerelle par défaut
 option domain-name-servers 192.168.100.1; #le serveur sert aussi de serveur DNS
 }
+```
+
 A quoi correspondent les deux premières lignes ?
- Les valeurs indiquées sur ces deux lignes sont faibles, afin que l’on puisse voir constituer quelques
-logs durant ce TP. Dans un environnement de production, elles sont beaucoup plus élevées!
+
+Les deux premières lignes correspondent au temps aucquel un poste garde son adresse IP avant de devoir re-demander une nouvelle adresse au serveur DHCP.
+
+** Les valeurs indiquées sur ces deux lignes sont faibles, afin que l’on puisse voir constituer quelques
+logs durant ce TP. Dans un environnement de production, elles sont beaucoup plus élevées!**
+
 4. Editez le fichier /etc/default/isc-dhcp-server afin de spécifier l’interface sur laquelle le serveur
 doit écouter.
+
+```
+INTERFACESv4="enp0s8"
+INTERFACESv6=""
+```
+
 5. Validez votre fichier de configuration avec la commande dhcpd -t puis redémarrez le serveur DHCP
 (avec la commande systemctl restart isc-dhcp-server) et vérifiez qu’il est actif.
+
 6. Passons au client. Si vous avez suivi le sujet du TP 1, le client a été créé en clonant la machine virtuelle
 du serveur. Par conséquent, son nom d’hôte est toujours serveur. Nous allons remédier à cela.
 Pour l’instant, vérifiez que la carte réseau du client est désactivée, puis démarrez le client.
